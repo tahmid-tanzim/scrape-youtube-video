@@ -3,6 +3,6 @@
 
 ```doctest
 docker-compose up -d
-docker exec -it scrape-youtube-video_backend_1 sh
+docker exec -it syv-backend sh
 python manage.py migrate
 ```
