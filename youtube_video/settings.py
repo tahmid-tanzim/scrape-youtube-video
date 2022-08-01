@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'background_task',
     'videos',
 ]
 
@@ -136,4 +137,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-YOUTUBE_DATA_API_KEY = os.getenv("YOUTUBE_DATA_API_KEY")
+SERVICE = {
+    'name': 'youtube',
+    'version': 'v3',
+    'key': os.getenv("YOUTUBE_DATA_API_KEY")
+}
+
+# units in seconds
+TASKS_SCHEDULE = 60
+TASKS_REPEAT = int(os.getenv("TRACKING_INTERVAL")) * 60
+TASKS_REPEAT_UNTIL = None
