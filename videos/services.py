@@ -47,10 +47,10 @@ class VideoService:
                     'published_at': channelObj['snippet']['publishedAt'],
                 }
             )
-            print('Success (channels.list)\n', resChannels)
+            print('Success in channels.list\n', resChannels)
             return channel
         except Exception as ex:
-            print('ERROR (channels.list)', ex)
+            print('ERROR in channels.list', ex)
             return None
 
     def search_videos(self, channelId, pageToken=''):
@@ -68,10 +68,10 @@ class VideoService:
             resSearch = reqSearch.execute()
             nextPageToken = resSearch.get('nextPageToken', None)
             videoIDs = set(map(lambda item: item['id']['videoId'], resSearch['items']))
-            print('Success (search.list)\n', resSearch)
+            print('Success in search.list by channel_id\n', resSearch)
             return videoIDs, nextPageToken,
         except Exception as ex:
-            print('ERROR (search.list)', ex)
+            print('ERROR in search.list by channel_id', ex)
             return set(), None,
 
     def get_videos(self, channel, videoIDs):
@@ -105,23 +105,36 @@ class VideoService:
                         tags.append(tag)
                     video.tags.add(*tags)
                     video.save()
-                print('Success (videos.list)\n', resVideos)
+            print('Success in videos.list\n', resVideos)
+            return True
         except Exception as ex:
-            print('ERROR (videos.list)', ex)
+            print('ERROR in videos.list', ex)
+            return False
 
     def track_video(self):
         start = datetime.now()
-        print("\nTracking Started -", start.strftime("%Y-%m-%d %H:%M:%S"), end='\n')
+        print("\nVideo Tracking Started -", start.strftime("%Y-%m-%d %H:%M:%S"), end='\n')
 
         channel = self.get_channel()
         if channel is not None:
-            nextPageToken = ''
+            # TODO : request quotaExceeded due to pagination
+            """
+            # nextPageToken = ''
             # while nextPageToken is not None:
-                # paginate video search list
-            videoIDs, nextPageToken = self.search_videos(channel.channel_id, nextPageToken)
-            # if len(videoIDs) == 0:
-            #     break
-            self.get_videos(channel, videoIDs)
+            #     # paginate video search list
+            #     videoIDs, nextPageToken = self.search_videos(channel.channel_id, nextPageToken)
+            #     if len(videoIDs) == 0:
+            #         break
+            #
+            #     success = self.get_videos(channel, videoIDs)
+            #     if not success:
+            #         break
+            #     print(f'NEXT Page Token - {nextPageToken}')
+            """
+
+            videoIDs, _ = self.search_videos(channel.channel_id)
+            if len(videoIDs) > 0:
+                self.get_videos(channel, videoIDs)
 
         end = datetime.now()
-        print("\nTracking End -", end.strftime("%Y-%m-%d %H:%M:%S"), end='\n')
+        print("\nVideo Tracking End -", end.strftime("%Y-%m-%d %H:%M:%S"), end='\n')

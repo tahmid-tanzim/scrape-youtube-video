@@ -1,4 +1,4 @@
-import os
+# import os
 # from django.conf import settings
 
 from rest_framework import viewsets, status
@@ -9,9 +9,25 @@ from rest_framework.response import Response
 
 from .models import Channel, Tag, Video
 from .services import VideoService
+from .serializers import TagSerializer, VideoSerializer
+
+
+class TagViewSet(viewsets.ViewSet):
+    def list(self, request):
+        tag = Tag.objects.all()
+        serializer = TagSerializer(tag, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class VideoViewSet(viewsets.ViewSet):
+    def list(self, request, order='DESC', tags=''):
+        # video = Video.objects.filter(tags__in=[tags]).order_by(f'{"-" if order == "DESC" else ""}performance_score')
+        video = Video.objects.all().order_by(f'{"-" if order == "DESC" else ""}performance_score')
+        serializer = VideoSerializer(video, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class TestViewSet(viewsets.ViewSet):
     def __init__(self):
         self.service = VideoService()
         # self.channels = {
@@ -35,7 +51,7 @@ class VideoViewSet(viewsets.ViewSet):
     #     return Response({'message': 'Success'}, status=status.HTTP_200_OK)
 
     def retrieve(self, request, code=None):
-        os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+        # os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
         try:
             # """
             # Get YouTube Channel

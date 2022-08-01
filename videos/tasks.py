@@ -5,6 +5,6 @@ from .services import VideoService
 
 
 @background(schedule=settings.TASKS_SCHEDULE)
-def track_video_statistics():
+def video_tracking_task():
     service = VideoService()
     service.track_video()

@@ -1,5 +1,7 @@
 from datetime import datetime
 from django.db import models
+
+
 # from django.utils.timezone import utc
 
 
@@ -57,7 +59,12 @@ class Video(models.Model):
         return 0
 
     def save(self, *args, **kwargs):
-        self.performance_score = int(self.view_count) / self.get_elapsed_days() * 100
+        # performance_score is number of view per day
+        try:
+            self.performance_score = int(self.view_count) / self.get_elapsed_days()
+        except ZeroDivisionError:
+            self.performance_score = 0
+
         super(Video, self).save(*args, **kwargs)
 
     def __str__(self):
