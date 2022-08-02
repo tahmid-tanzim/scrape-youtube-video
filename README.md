@@ -1,15 +1,38 @@
 # Scrape YouTube Video
 
+### Screenshot
+![screenshot](screenshot.png)
+
 ### Project Setup
-1. `git clone https://github.com/tahmid-tanzim/scrape-youtube-video.git`
-2. `cd scrape-youtube-video`
-3. `cp .env.example .env`
-4. `vim .env`
-5. update environment variable i.e. YOUTUBE_API_KEY 
-6. `docker-compose up -d`
-7. `docker exec -it syv-server python manage.py makemigrations`
-8. `docker exec -it syv-server python manage.py migrate`
-9. `docker exec -it syv-server python manage.py process_tasks`
+1. Clone repository
+    ```bash
+    git clone https://github.com/tahmid-tanzim/scrape-youtube-video.git
+    ```
+2. Change directory
+    ```bash
+    cd scrape-youtube-video
+    ```
+3. Create `.env` file from default
+    ```bash
+    cp .env.example .env
+    ```
+4. Update environment variable i.e. YOUTUBE_API_KEY
+    ```bash
+    vim .env
+    ``` 
+5. Run docker containers
+    ```bash
+    docker-compose up -d
+    ```
+6. Run django migration commands
+    ```bash
+    docker exec -it syv-server python manage.py makemigrations
+    docker exec -it syv-server python manage.py migrate
+    ```
+7. Run background task to track changes of YouTube video
+    ```bash
+    docker exec -it syv-server python manage.py process_tasks
+    ```
 
 
 ### API Documentation

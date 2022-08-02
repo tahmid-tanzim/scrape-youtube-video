@@ -14,7 +14,7 @@ class Channel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Channel - {self.channel_id}"
+        return f"{self.title}"
 
     class Meta:
         db_table = "channel"
@@ -26,7 +26,7 @@ class Tag(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Tag - {self.value}"
+        return f"{self.value}"
 
     class Meta:
         db_table = "tag"
@@ -65,7 +65,7 @@ class Video(models.Model):
         super(Video, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"Video - {self.video_id}"
+        return f"{self.title}"
 
     class Meta:
         db_table = "video"

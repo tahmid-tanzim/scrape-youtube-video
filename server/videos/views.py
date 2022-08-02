@@ -18,8 +18,8 @@ class VideoViewSet(viewsets.ViewSet):
         if request.query_params.get('score_order', 'DESC') == 'DESC':
             order_type = '-' + order_type
 
-        tags = request.query_params.get('tags', '')
-        if not tags:
+        tags = request.query_params.get('tags', None)
+        if tags is not None:
             try:
                 tags = list(map(int, tags.split(',')))
                 video = Video.objects.filter(tags__in=tags).distinct().order_by(order_type)
