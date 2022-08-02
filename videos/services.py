@@ -118,7 +118,7 @@ class VideoService:
 
         channel = self.get_channel()
         if channel is not None:
-            # TODO : request quotaExceeded due to pagination
+            # TODO : request quotaExceeded due to search pagination
             """
             # nextPageToken = ''
             # while nextPageToken is not None:
@@ -126,7 +126,6 @@ class VideoService:
             #     videoIDs, nextPageToken = self.search_videos(channel.channel_id, nextPageToken)
             #     if len(videoIDs) == 0:
             #         break
-            #
             #     success = self.get_videos(channel, videoIDs)
             #     if not success:
             #         break
