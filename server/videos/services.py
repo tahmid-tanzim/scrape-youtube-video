@@ -8,11 +8,8 @@ from django.conf import settings
 from .models import Channel, Tag, Video
 
 sample_youtube_channels = {
-    'Google Developers': 'UC_x5XG1OV2P6uZZ5FSM9Ttw',
     'freeCodeCamp.org': 'UC8butISFwT-Wl7EV0hUK0BQ',
     'Dude Perfect': 'UCRijo3ddMTht_IHyNSNXpNQ',
-    'Vox': 'UCLXo7UDZvByw2ixzpQCufnA',
-    'mkbhd': 'UCBJycsmduvYEL83R_U4JriQ',
 }
 
 

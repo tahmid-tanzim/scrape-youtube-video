@@ -5,8 +5,8 @@ services:
     restart: always
     environment:
       - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=C0V1D19
-      - POSTGRES_DB=scrape_youtube_db
+      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_DB=youtube_db
     ports:
       - "54320:5432"
     volumes:
@@ -15,9 +15,9 @@ services:
   server:
     container_name: syv-server
     build:
-      context: server
+      context: ./server
       dockerfile: Dockerfile
-    command: ["python", "server/manage.py", "runserver", "0.0.0.0:8080"]
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8080"]
     ports:
       - "8000:8080"
     volumes:
@@ -29,7 +29,7 @@ services:
   client:
     container_name: syv-client
     build:
-      context: client
+      context: ./client
       dockerfile: Dockerfile
     volumes:
       - /app/node_modules

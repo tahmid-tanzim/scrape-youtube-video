@@ -90,7 +90,7 @@ function App() {
         </Grid>
         <Box sx={{ p: 1 }} />
         {videoList.length > 0 && <Video videos={videoList} />}
-        {videoList.length == 0 && (
+        {videoList.length === 0 && (
           <Alert severity="info">No videos available!</Alert>
         )}
       </Container>

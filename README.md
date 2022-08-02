@@ -22,12 +22,11 @@
     ``` 
 5. Run docker containers
     ```bash
-    docker-compose build
+    docker-compose build --no-cache
     docker-compose up -d
     ```
 6. Run django migration commands
     ```bash
-    docker exec -it syv-server python manage.py makemigrations
     docker exec -it syv-server python manage.py migrate
     ```
 7. Run background task to track changes of YouTube video
@@ -43,15 +42,15 @@
 | 2   | GET       | http://localhost:8000/api/videos?score_order=ASC&tags=4,5,7  | Filter videos by tags and sort by performance score | 
 
 
-### Web Application
+### Client Application
 URL - http://localhost:3000
 
 
-### TIPS: 
+<!-- ### TIPS: 
 If background task runs multiple times per second after setting up schedule and repeat
 ```doctest
 docker exec -it syv-server python manage.py shell
 from background_task.models import Task
 Task.objects.all().delete()
 exit()
-```
+``` -->

@@ -35,7 +35,6 @@ class Migration(migrations.Migration):
                 ('favorite_count', models.PositiveBigIntegerField()),
                 ('comment_count', models.PositiveBigIntegerField()),
                 ('published_at', models.DateTimeField(blank=True)),
-                ('duration', models.CharField(max_length=100)),
                 ('performance_score', models.FloatField(default=0)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
