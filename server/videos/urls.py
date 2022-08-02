@@ -2,7 +2,7 @@
 from django.urls import path
 
 from .views import VideoViewSet, TagViewSet
-from .tasks import video_tracking_task, start_background_task
+# from .tasks import video_tracking_task
 
 urlpatterns = [
     path("tags", TagViewSet.as_view({
@@ -17,5 +17,3 @@ urlpatterns = [
 #     repeat=settings.TASKS_REPEAT,
 #     repeat_until=settings.TASKS_REPEAT_UNTIL
 # )
-
-# start_background_task()
