@@ -1,6 +1,6 @@
 # Scrape YouTube Video
 
-### Project setup
+### Project Setup
 1. `git clone https://github.com/tahmid-tanzim/scrape-youtube-video.git`
 2. `cd scrape-youtube-video`
 3. `cp .env.example .env`
@@ -11,13 +11,11 @@
 8. `docker exec -it syv-backend python manage.py migrate`
 9. `docker exec -it syv-backend python manage.py process_tasks`
 
-
 ### API Doc
 ```doctest
 http://localhost:8000/api/tags
 http://localhost:8000/api/videos/DESC/<tags>
 ```
-
 
 ### TIPS: 
 If background task runs multiple times per second after setting up schedule and repeat

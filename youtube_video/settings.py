@@ -149,6 +149,6 @@ SERVICE = {
 }
 
 # units in seconds
-TASKS_SCHEDULE = 60
+TASKS_SCHEDULE = 5
 TASKS_REPEAT = int(15 * 60)
 TASKS_REPEAT_UNTIL = None

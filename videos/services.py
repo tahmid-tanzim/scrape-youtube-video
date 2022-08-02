@@ -27,6 +27,9 @@ class VideoService:
 
     def get_channel(self):
         try:
+            channel = Channel.objects.get(channel_id=sample_youtube_channels['freeCodeCamp.org'])
+            return channel
+        except Channel.DoesNotExist:
             reqChannels = self.youtube.channels().list(
                 part='snippet,statistics',
                 id=sample_youtube_channels['freeCodeCamp.org'],
@@ -36,21 +39,19 @@ class VideoService:
             resChannels = reqChannels.execute()
             channelObj = resChannels['items'][0]
 
-            channel, isCreated = Channel.objects.update_or_create(
+            channel = Channel.objects.create(
                 channel_id=channelObj['id'],
-                defaults={
-                    'title': channelObj['snippet']['title'],
-                    'description': channelObj['snippet']['description'],
-                    'view_count': channelObj['statistics']['viewCount'],
-                    'subscriber_count': channelObj['statistics']['subscriberCount'],
-                    'video_count': channelObj['statistics']['videoCount'],
-                    'published_at': channelObj['snippet']['publishedAt'],
-                }
+                title=channelObj['snippet']['title'],
+                description=channelObj['snippet']['description'],
+                view_count=channelObj['statistics']['viewCount'],
+                subscriber_count=channelObj['statistics']['subscriberCount'],
+                video_count=channelObj['statistics']['videoCount'],
+                published_at=channelObj['snippet']['publishedAt']
             )
-            print('Success in channels.list\n', resChannels)
+            print('\nSuccess in channels.list\n', resChannels)
             return channel
         except Exception as ex:
-            print('ERROR in channels.list', ex)
+            print('\nERROR in channels.list', ex)
             return None
 
     def search_videos(self, channelId, pageToken=''):
@@ -68,10 +69,10 @@ class VideoService:
             resSearch = reqSearch.execute()
             nextPageToken = resSearch.get('nextPageToken', None)
             videoIDs = set(map(lambda item: item['id']['videoId'], resSearch['items']))
-            print('Success in search.list by channel_id\n', resSearch)
+            print('\nSuccess in search.list by channel_id\n', videoIDs)
             return videoIDs, nextPageToken,
         except Exception as ex:
-            print('ERROR in search.list by channel_id', ex)
+            print('\nERROR in search.list by channel_id', ex)
             return set(), None,
 
     def get_videos(self, channel, videoIDs):
@@ -105,10 +106,10 @@ class VideoService:
                         tags.append(tag)
                     video.tags.add(*tags)
                     video.save()
-            print('Success in videos.list\n', resVideos)
+            print('\nSuccess in videos.list\n', resVideos['etag'])
             return True
         except Exception as ex:
-            print('ERROR in videos.list', ex)
+            print('\nERROR in videos.list', ex)
             return False
 
     def track_video(self):

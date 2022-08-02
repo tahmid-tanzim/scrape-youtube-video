@@ -2,9 +2,6 @@ from datetime import datetime
 from django.db import models
 
 
-# from django.utils.timezone import utc
-
-
 class Channel(models.Model):
     channel_id = models.CharField(max_length=150)
     title = models.CharField(max_length=255)
@@ -59,7 +56,7 @@ class Video(models.Model):
         return 0
 
     def save(self, *args, **kwargs):
-        # performance_score is number of view per day
+        # performance_score is number of views per day
         try:
             self.performance_score = int(self.view_count) / self.get_elapsed_days()
         except ZeroDivisionError:
