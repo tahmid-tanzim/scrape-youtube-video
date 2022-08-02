@@ -14,14 +14,15 @@
     ```
 3. Create `.env` file from default
     ```bash
-    cp .env.example .env
+    cp server/.env.example server/.env
     ```
-4. Update environment variable i.e. YOUTUBE_API_KEY
+4. Update environment variable i.e. SECRET_KEY, YOUTUBE_API_KEY
     ```bash
-    vim .env
+    vim server/.env
     ``` 
 5. Run docker containers
     ```bash
+    docker-compose build
     docker-compose up -d
     ```
 6. Run django migration commands
