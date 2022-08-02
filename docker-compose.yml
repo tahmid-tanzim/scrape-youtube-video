@@ -5,8 +5,8 @@ services:
     restart: always
     environment:
       - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=admin123
-      - POSTGRES_DB=youtube_db
+      - POSTGRES_PASSWORD=C0V1D19
+      - POSTGRES_DB=scrape_youtube_db
     ports:
       - "54320:5432"
     volumes:
