@@ -18,4 +18,4 @@ urlpatterns = [
 #     repeat_until=settings.TASKS_REPEAT_UNTIL
 # )
 
-start_background_task()
+# start_background_task()
