@@ -7,9 +7,9 @@
 4. `vim .env`
 5. update environment variable i.e. YOUTUBE_API_KEY 
 6. `docker-compose up -d`
-7. `docker exec -it syv-backend python manage.py makemigrations`
-8. `docker exec -it syv-backend python manage.py migrate`
-9. `docker exec -it syv-backend python manage.py process_tasks`
+7. `docker exec -it syv-server python manage.py makemigrations`
+8. `docker exec -it syv-server python manage.py migrate`
+9. `docker exec -it syv-server python manage.py process_tasks`
 
 
 ### API Documentation
@@ -26,7 +26,7 @@ URL - http://localhost:3000
 ### TIPS: 
 If background task runs multiple times per second after setting up schedule and repeat
 ```doctest
-docker exec -it syv-backend python manage.py shell
+docker exec -it syv-server python manage.py shell
 from background_task.models import Task
 Task.objects.all().delete()
 exit()

@@ -10,17 +10,31 @@ services:
     ports:
       - "54320:5432"
     volumes:
-      - ./data:/var/lib/postgresql/data/
+      - ./server/data:/var/lib/postgresql/data/
 
-  backend:
-    container_name: syv-backend
+  server:
+    container_name: syv-server
     build:
-      context: .
+      context: server
       dockerfile: Dockerfile
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+    command: ["python", "server/manage.py", "runserver", "0.0.0.0:8080"]
+#    command: ["./wait-for-it.sh", "db:5432", "--", "python", "server/manage.py", "runserver", "0.0.0.0:8080"]
     ports:
       - "8000:8080"
     volumes:
       - .:/app
     depends_on:
       - db
+    restart: on-failure
+
+  client:
+    container_name: syv-client
+    build:
+      context: client
+      dockerfile: Dockerfile
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    ports:
+      - "3000:3000"
+    restart: on-failure
